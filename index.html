@@ -1307,27 +1307,23 @@ const CULTURE_SCAFFOLD = {
 
 /* AI 质检报告（Task 2 展示组 Group One） */
 const AI_REPORT = {
-  task:"任务2：检前告知 · Pre-check Instruction",
   group:"展示组 Group One",
-  student:"王琳（健康管理师 Health Manager）& 张浩（外籍客户 Mrs. Davis）",
-  date:"2026-09-25",
-  duration:"04:36",
   total:83,
   dims:[
-    { key:"C", name:"清晰 Clear", score:82, color:"#1668dc",
-      comment:"信息运用 What-Why-How-When 四要素讲解，逻辑有序；个别要求顺序可再优化。" },
-    { key:"A", name:"准确 Accurate", score:80, color:"#0f9d8f",
-      comment:"fasting / NPO 术语使用正确，空腹采血 + 腹部超声 + 胃镜准备完整无误。" },
-    { key:"R", name:"得体 Respectful", score:86, color:"#e8890c",
-      comment:"共情表达自然，有效缓解客户紧张；语气委婉不生硬命令。" },
-    { key:"E", name:"交互 Engaging", score:83, color:"#2f9e44",
-      comment:"结束主动确认理解（Is that all clear?），针对饮水疑问给出针对性应答。" }
+    { key:"C", name:"C · Clarity", score:82, color:"#1668dc",
+      comment:"Each pre-check instruction was explained with the What–Why–How–When framework in a logical order; the sequence of a few requirements could be further optimized." },
+    { key:"A", name:"A · Accuracy", score:80, color:"#0f9d8f",
+      comment:"Terminology such as fasting / NPO was used correctly; preparations for the fasting blood test, abdominal ultrasound and gastroscopy were complete and error-free." },
+    { key:"R", name:"R · Respectfulness", score:86, color:"#e8890c",
+      comment:"Empathy was expressed naturally and effectively eased the client’s anxiety; the tone was courteous rather than commanding." },
+    { key:"E", name:"E · Engagement", score:83, color:"#2f9e44",
+      comment:"Understanding was proactively confirmed at the end (Is that all clear?), and the question about drinking water received a targeted response." }
   ],
   highlights:[
-    "Tell–Check–Respond 三阶框架完整落地：告知信息 → 确认理解 → 应答答疑，语篇结构清晰。",
-    "共情表达自然到位：“I totally understand your worry.” 有效安抚首次体检客户的紧张情绪。",
-    "文化融合自然：检查结束后主动介绍小米粥（millet congee），体现中式康养待客之道。",
-    "结束以 “Let me confirm — Is that all clear?” 收尾确认，形成服务闭环。"
+    "The Tell–Check–Respond three-stage framework was fully delivered — inform → confirm understanding → answer questions — with a clear discourse structure.",
+    "Empathy was natural and well-timed: “I totally understand your worry.” effectively eased the first-time client’s nerves.",
+    "Cultural integration felt natural: after the examination, millet congee was introduced proactively, reflecting Chinese wellness hospitality.",
+    "The session closed with “Let me confirm — Is that all clear?”, forming a full service loop."
   ],
   optimizations:[
     { original:"I’m not a doctor, so I can’t answer that.",
@@ -2481,7 +2477,7 @@ window.CARD_ART = CARD_ART;
   /* =========================================================
      工具 2：任务二维码 + 学生互评问卷
      ========================================================= */
-  const DEFAULT_URL = "https://b099c13ab5ff4fa3a91598893c23b3f6.app.workbuddy.host";
+  const DEFAULT_URL = "https://liu9098.github.io/task2-voting/";
 
   function renderQR() {
     openModal("📱 任务二维码 · Task 2 角色扮演互评问卷", `
@@ -3013,9 +3009,6 @@ window.CARD_ART = CARD_ART;
         <div class="rd-hero-main">
           <div>
             <div class="rd-h1">AI 角色扮演质检报告</div>
-            <div class="rd-sub">${esc(r.task)}</div>
-            <div class="rd-sub">Group ${reportGroup} · ${esc(r.student)}</div>
-            <div class="rd-sub">${r.date} · 时长 ${r.duration}</div>
           </div>
           <div class="rd-hero-score">
             <div class="rd-score">${r.total}</div>
@@ -3025,7 +3018,7 @@ window.CARD_ART = CARD_ART;
       </div>
 
       <div class="rd-card">
-        <div class="rd-h2">🎯 CARE 四维评分</div>
+        <div class="rd-h2">🎯 CARE Four-Dimension Scores</div>
         ${r.dims.map((dd) => `
           <div class="rd-dim-row">
             <div class="rd-dim-name">${esc(dd.name)}</div>
@@ -3036,7 +3029,7 @@ window.CARD_ART = CARD_ART;
       </div>
 
       <div class="rd-card">
-        <div class="rd-h2">✨ 表演亮点</div>
+        <div class="rd-h2">✨ Performance Highlights</div>
         <ul class="rd-list ok">${r.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>
       </div>
 
