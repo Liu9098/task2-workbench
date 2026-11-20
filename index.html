@@ -1135,6 +1135,27 @@ const PEER_CHECKLIST = [
   ]}
 ];
 
+/* 学生端互评问卷专用数据（四维 + 8 条子项全英文；老师端 PEER_CHECKLIST 保持中文不变） */
+const STUDENT_QA = [
+  { key:"C", dim:"Information Clarity", icon:"💡", color:"#1668dc", items:[
+    { id:"C1", text:"Information is presented logically, explaining each pre-check requirement with the What–Why–How–When framework." },
+    { id:"C2", text:"Expressions are concise and easy to follow, with no long or confusing sentences." }
+  ]},
+  { key:"A", dim:"Expression Accuracy", icon:"🎯", color:"#0f9d8f", items:[
+    { id:"A1", text:"Professional medical terms (e.g. fasting / NPO) are used correctly." },
+    { id:"A2", text:"Pre-check information for each examination item is complete, with no omissions or errors." }
+  ]},
+  { key:"R", dim:"Language Politeness", icon:"🌿", color:"#e8890c", items:[
+    { id:"R1", text:"Empathetic statements are used to ease the client’s nervousness and worry." },
+    { id:"R2", text:"Communication is polite and tactful, without blunt or commanding instructions." }
+  ]},
+  { key:"E", dim:"Interaction Effect", icon:"💬", color:"#2f9e44", items:[
+    { id:"E1", text:"After informing, the guide actively checks whether the client has understood (the Check step is carried out)." },
+    { id:"E2", text:"The client’s questions are answered attentively, creating a two-way dialogue rather than a one-way monologue." }
+  ]}
+];
+window.STUDENT_QA = STUDENT_QA;
+
 /* 互评完成人数（评价表、条形图、雷达图统一口径） */
 const PEER_TOTAL = 24;
 
@@ -1325,7 +1346,6 @@ const AI_REPORT = {
   highlights:[
     "The Tell–Check–Respond three-stage framework was fully delivered — inform → confirm understanding → answer questions — with a clear discourse structure.",
     "Empathy was natural and well-timed: “I totally understand your worry.” effectively eased the first-time client’s nerves.",
-    "Cultural integration felt natural: after the examination, millet congee was introduced proactively, reflecting Chinese wellness hospitality.",
     "The session closed with “Let me confirm — Is that all clear?”, forming a full service loop."
   ],
   optimizations:[
@@ -2566,7 +2586,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
         <div class="phone-body" id="qa-body">
           <div style="font-size:13px;font-weight:600;margin-bottom:4px">展示组：Group One</div>
           <div style="font-size:11.5px;color:var(--text-3);margin-bottom:12px">陈可欣（健康管理师）& 李昊（外籍客户 Mrs. Davis）· 任务卡 A</div>
-          ${PEER_CHECKLIST.map((d) => `
+          ${STUDENT_QA.map((d) => `
             <div class="qa-dim">
               <div class="qa-dim-head"><span>${d.icon}</span><span>${esc(d.dim)}</span>
                 <span style="margin-left:auto;font-size:11px;color:var(--text-3)">已勾选 <b id="cnt-${d.key}">0</b> 项</span></div>
