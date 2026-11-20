@@ -885,6 +885,7 @@ table.tbl tr:hover td{background:#fafbfe}
 .rd-mode{
   font-size:24px;color:#ffd08a;border:1px solid rgba(255,208,138,.4);
   background:rgba(255,208,138,.1);border-radius:22px;padding:5px 16px;
+  font-family:inherit;cursor:pointer;
 }
 .rd-card{background:#1c1c1c;border:1px solid #333;border-radius:14px;padding:22px 26px;margin-bottom:18px}
 .rd-hero{position:relative;overflow:hidden;padding-left:32px}
@@ -1330,14 +1331,17 @@ const AI_REPORT = {
   optimizations:[
     { original:"I’m not a doctor, so I can’t answer that.",
       issue:"边界表述过于直接，未先回应客户担忧，易让客户感到被拒绝。",
+      issueEn:"The boundary statement is too direct and does not acknowledge the client’s concern first, which may make the client feel rejected rather than cared for.",
       fix:"I totally understand your concern. However, I’m a health manager, not a doctor, so I can’t give medical advice. But after your check-up, the doctor will explain it. Would that work for you?",
       note:"先共情再设边界：empathize first, then set the boundary。" },
     { original:"You must not eat or drink after 10.",
       issue:"语气偏命令，易引发抵触，未说明原因。",
+      issueEn:"The tone sounds commanding and may cause resistance, with no reason given.",
       fix:"Please do not eat or drink anything after 10 o’clock tonight — this helps us get accurate results.",
       note:"以建议 + 原因代替生硬指令，提升可接受度。" },
     { original:"Drink water for ultrasound.",
       issue:"表述过于简略，未说明目的与用量。",
+      issueEn:"The statement is too brief, without explaining the purpose or the amount needed.",
       fix:"For abdominal ultrasound, please drink about 500ml water one hour before and don’t go to the bathroom — that helps fill your bladder for a clearer image.",
       note:"补充 How / Why，信息完整且逻辑有序。" }
   ],
@@ -1776,6 +1780,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
      页面 4：学情数据中心（任务入口页）
      ========================================================= */
   let evalTask = 4;
+  let evalFromRecognition = false;   // 评价表是否从「识别录音文本页」进入（决定返回按钮去向）
 
   PAGES.data = function () {
     return `
@@ -1843,8 +1848,9 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
   }
   window.hideDark = hideDark;
 
-  function openEval(taskId) {
+  function openEval(taskId, fromRecognition) {
     evalTask = taskId;
+    evalFromRecognition = !!fromRecognition;
     const t = TASKS.find((x) => x.id === taskId);
     if (!t || !t.ready) {
       showDark(`
@@ -1897,8 +1903,10 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
 
     showDark(`
       <div class="dp-topbar">
-        <button class="dp-btn" onclick="hideDark()">← 返回主页</button>
-        <button class="dp-btn accent" onclick="openAnalysis()">📊 学情分析</button>
+        ${evalFromRecognition
+          ? `<button class="dp-btn accent" onclick="backToRecognition()">↩ 返回识别录音文本页</button>`
+          : `<button class="dp-btn" onclick="hideDark()">← 返回主页</button>`}
+        <button class="dp-btn accent" onclick="openAnalysis()">📊 投票结果分析</button>
       </div>
 
       <div class="dp-card dp-hero">
@@ -1957,7 +1965,8 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
       <div class="dp-topbar">
         <div class="an-title">📊 Task 2 学情可视化诊断</div>
         <div style="display:flex;gap:8px;align-items:center">
-          <button class="dp-btn" onclick="openEval(${evalTask})">← 返回主界面</button>
+          <button class="dp-btn accent" onclick="backToRecognition()">↩ 返回识别录音文本页</button>
+          <button class="dp-btn" onclick="openEval(${evalTask}, ${evalFromRecognition})">← 返回主界面</button>
           <button class="dp-btn x" onclick="hideDark()">×</button>
         </div>
       </div>
@@ -2681,7 +2690,6 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
             <button class="rec-ghost" onclick="playBack()">▶ 回放</button>
             <button class="rec-ghost" onclick="recRecognize()">🔍 识别录音</button>
             <button class="rec-ghost" onclick="submitForAI()">🤖 提交 AI 分析</button>
-            <button class="rec-ghost" onclick="demoReport()">⚡ 演示模式</button>
           </div>
         </div>
       </div>
@@ -2723,6 +2731,20 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
       </div>`, "rec");
     recInitWaveform();
   }
+  // 修复：暴露到 window，供弹窗 onclick="renderRecorder()" 调用（此前遗漏导致点击无反应）
+  window.renderRecorder = renderRecorder;
+
+  /* 识别文本弹窗 → 返回重新录制：彻底重置录音状态，回到干净的录音台 */
+  function restartRecording() {
+    if (recState.rec && recState.rec.state === "recording") { try { recState.rec.stop(); } catch (e) {} }
+    stopAllTracks();
+    if (recState.ctx) { try { recState.ctx.close(); } catch (e) {} }
+    if (recState.url) { try { URL.revokeObjectURL(recState.url); } catch (e) {} }
+    recState.rec = null; recState.chunks = []; recState.sec = 0; recState.url = null;
+    recState.ctx = null; recState.on = false; recState.t = 0;
+    renderRecorder();
+  }
+  window.restartRecording = restartRecording;
 
   function toggleScaffold(i) {
     const el = document.getElementById("sc-" + i);
@@ -2796,20 +2818,33 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
     });
   }
   function recStartWave() {
+    // 频谱全为 0 时的兜底动画（AudioContext 未激活/静音环境，保证波形始终在动）
+    const animAmp = (i, n) => {
+      const t = recState.t;
+      const env = Math.sin(t * 0.7 + i * 0.12) * 0.5 + 0.5;
+      const wv = Math.sin(t * 3 + i * 0.5) * 0.25 + 0.35;
+      return Math.max(0.05, Math.min(1, env * 0.6 + wv + Math.random() * 0.2));
+    };
     const tick = () => {
       if (!recState.on) return;
+      // 每帧检查：若 AudioContext 处于 suspended，尝试再次唤醒
+      if (recState.ctx && recState.ctx.state === "suspended" && recState.ctx.resume) {
+        try { recState.ctx.resume(); } catch (e) {}
+      }
+      let hasSignal = false;
       if (recState.analyser && recState.data) {
         recState.analyser.getByteFrequencyData(recState.data);
+        // 检测频谱是否全为 0（拿不到有效音频数据）
+        for (let k = 0; k < recState.data.length; k++) {
+          if (recState.data[k] > 0) { hasSignal = true; break; }
+        }
+      }
+      if (hasSignal) {
         const step = Math.max(1, Math.floor(recState.data.length / REC_BARS));
         recDrawWave((i) => Math.max(0.05, Math.min(1, (recState.data[i * step] || 0) / 255)));
       } else {
         recState.t += 0.12;
-        const t = recState.t;
-        recDrawWave((i) => {
-          const env = Math.sin(t * 0.7 + i * 0.12) * 0.5 + 0.5;
-          const wv = Math.sin(t * 3 + i * 0.5) * 0.25 + 0.35;
-          return Math.max(0.05, Math.min(1, env * 0.6 + wv + Math.random() * 0.2));
-        });
+        recDrawWave(animAmp);
       }
       recState.raf = requestAnimationFrame(tick);
     };
@@ -2913,6 +2948,10 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
       }, 1000);
       try {
         recState.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        // 修复：自动播放策略下 AudioContext 常为 suspended，需主动 resume 才能拿到频谱
+        if (recState.ctx.state === "suspended" && recState.ctx.resume) {
+          try { recState.ctx.resume(); } catch (e) {}
+        }
         const src = recState.ctx.createMediaStreamSource(stream);
         const an = recState.ctx.createAnalyser();
         an.fftSize = 128;
@@ -2945,9 +2984,9 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
   }
 
   function playBack() {
-    if (!recState.url) { showToast("还没有录音，请先录制或使用演示模式"); return; }
-    new Audio(recState.url).play();
-    showToast("正在回放录音");
+    // 回放默认成功、不弹任何提示；无录音则静默返回
+    if (!recState.url) return;
+    try { new Audio(recState.url).play(); } catch (e) {}
   }
   window.playBack = playBack;
 
@@ -2974,13 +3013,27 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
           </div>`).join("")}
       </div>
       <div class="btn-group" style="margin-top:14px">
-        <button class="btn" onclick="renderRecorder()">← 返回录音台</button>
-        <button class="btn btn-primary" onclick="submitForAI()">🤖 提交 AI 分析</button>
-        <button class="btn" onclick="closeModal()">关闭</button>
+        <button class="btn btn-primary" onclick="goToPeerVote()">👥 小组互评</button>
+        <button class="btn btn-primary" onclick="submitForAI()">📄 AI分析报告</button>
+        <button class="btn" onclick="restartRecording()">↩ 返回重新录制</button>
       </div>`, "");
     showToast("识别完成，已生成对话文本");
   }
   window.recRecognize = recRecognize;
+
+  /* 识别文本弹窗 → 小组互评（Task 2 评价表深色页），来源标记为识别文本页 */
+  function goToPeerVote() {
+    closeModal();
+    openEval(2, true);
+  }
+  window.goToPeerVote = goToPeerVote;
+
+  /* 从评价表 / 质检报告页 → 返回识别录音文本页 */
+  function backToRecognition() {
+    hideDark();
+    recRecognize();
+  }
+  window.backToRecognition = backToRecognition;
 
   function demoReport() {
     showToast("正在生成质检报告");
@@ -3050,6 +3103,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
         <button class="dp-btn" onclick="openReport('groups')">← 返回小组选择</button>
         <div class="rd-tools">
           <span class="rd-mode">📺 投屏模式</span>
+          <button class="rd-mode" onclick="backToRecognition()">↩ 返回识别录音文本页</button>
           <button class="dp-btn x" onclick="hideDark()">×</button>
         </div>
       </div>
@@ -3089,7 +3143,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
           <div class="rd-opt">
             <div class="rd-tag">原句 ${i + 1}</div>
             <div class="rd-quote">${esc(o.original)}</div>
-            <div class="rd-text rd-issue">⚠️ ${esc(o.issue)}</div>
+            <div class="rd-text rd-issue">⚠️ ${esc(o.issue)}<br>${esc(o.issueEn || "")}</div>
             <div class="rd-tag ok">岗位标准替换句式</div>
             <div class="rd-quote ok">${esc(o.fix)}</div>
             <div class="rd-text rd-note">${esc(o.note)}</div>
