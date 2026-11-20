@@ -3170,17 +3170,6 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
           </div>`).join("")}
       </div>
 
-      <div class="rd-card">
-        <div class="rd-h2">🔑 教师提炼 · CARE 四维要点</div>
-        <div class="rd-keys">
-          ${r.teacherSummary.map((t) => `<div class="rd-key">
-            <div class="rd-key-t">${esc(t.title)}</div>
-            <div class="rd-text">${esc(t.text)}</div>
-          </div>`).join("")}
-        </div>
-        <div class="rd-closing">${esc(r.closing)}</div>
-      </div>
-
       <div class="rd-actions">
         <button class="rq-btn" onclick="window.print()">🖨️ 打印 / 导出报告</button>
         <button class="dp-btn" onclick="openReport('groups')">← 返回小组选择</button>
