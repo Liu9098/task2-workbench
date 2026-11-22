@@ -2084,7 +2084,11 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
             beginAtZero: true, max: 100,
             ticks: { stepSize: 25, color: "#8aa4c2", backdropColor: "transparent", font: { size: 10 } },
             grid: { color: "#1d3a5c" }, angleLines: { color: "#1d3a5c" },
-            pointLabels: { color: "#c3d3e6", font: { size: 20 } }
+            // 雷达图指标文字按条形图对应指标的颜色显示（彩色）
+            pointLabels: {
+              color: radarMode === "core" ? CORE_METRICS.map((m) => m.color) : CARE_DIMS.map((d) => d.color),
+              font: { size: 20 }
+            }
           }
         }
       }
