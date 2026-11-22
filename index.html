@@ -2937,11 +2937,23 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
   window.recToggleRecording = recToggleRecording;
 
   function recStartRecord() {
-    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-      showToast("当前环境不支持录音，请使用“演示模式”");
-      return;
-    }
+    // 演示优先：立即进入录音态（计时 + 波形动画），麦克风不可用也照常演示
+    recState.on = true;
+    recState.sec = 0;
+    recState.t = 0;
+    const el = document.getElementById("rec-time");
+    if (el) el.textContent = "00:00";
+    recState.timer = setInterval(() => {
+      recState.sec++;
+      const t = document.getElementById("rec-time");
+      if (t) t.textContent = fmt(recState.sec);
+    }, 1000);
+    recSyncUI();
+    recStartWave();   // 无 analyser → animAmp 动画波形（演示模式）
+    // 尝试真实麦克风（可选增强；失败静默降级，演示继续）
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
     navigator.mediaDevices.getUserMedia({ audio: true }).then((stream) => {
+      if (!recState.on) { stream.getTracks().forEach((tr) => tr.stop()); return; }
       recState.stream = stream;
       recState.chunks = [];
       if (typeof MediaRecorder !== "undefined") {
@@ -2956,19 +2968,8 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
           recState.rec.start();
         } catch (e) { recState.rec = null; }
       }
-      recState.on = true;
-      recState.sec = 0;
-      recState.t = 0;
-      const el = document.getElementById("rec-time");
-      if (el) el.textContent = "00:00";
-      recState.timer = setInterval(() => {
-        recState.sec++;
-        const t = document.getElementById("rec-time");
-        if (t) t.textContent = fmt(recState.sec);
-      }, 1000);
       try {
         recState.ctx = new (window.AudioContext || window.webkitAudioContext)();
-        // 修复：自动播放策略下 AudioContext 常为 suspended，需主动 resume 才能拿到频谱
         if (recState.ctx.state === "suspended" && recState.ctx.resume) {
           try { recState.ctx.resume(); } catch (e) {}
         }
@@ -2979,11 +2980,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
         recState.analyser = an;
         recState.data = new Uint8Array(an.frequencyBinCount);
       } catch (e) { recState.analyser = null; recState.data = null; }
-      recSyncUI();
-      recStartWave();
-    }).catch(() => {
-      showToast("无法访问麦克风，请检查权限或使用“演示模式”");
-    });
+    }).catch(() => {});   // 静默：麦克风不可用就演示模式继续
   }
 
   function stopAllTracks() {
