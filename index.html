@@ -730,28 +730,42 @@ table.tbl tr:hover td{background:#fafbfe}
 .dp-empty .t{font-size:16px;color:#e8eef7;font-weight:600;margin-bottom:6px}
 
 .an-wrap{max-width:1000px;margin:0 auto;padding:22px 24px 44px}
-.an-title{font-size:17px;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px}
-.an-sec-head{display:flex;align-items:center;gap:10px;font-size:14.5px;font-weight:600;color:#fff;margin-bottom:16px;flex-wrap:wrap}
+.an-title{font-size:20px;font-weight:600;color:#fff;display:flex;align-items:center;gap:8px}
+.an-sec-head{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:600;color:#fff;margin-bottom:16px;flex-wrap:wrap}
 .an-sec-no{
-  width:24px;height:24px;border-radius:7px;background:#e8890c;color:#fff;font-size:12px;
-  display:flex;align-items:center;justify-content:center;flex:0 0 24px;
+  width:26px;height:26px;border-radius:7px;background:#e8890c;color:#fff;font-size:16px;
+  display:flex;align-items:center;justify-content:center;flex:0 0 26px;
 }
-.an-sec-en{font-size:11.5px;color:#8aa4c2;font-weight:400}
+.an-sec-en{font-size:16px;color:#8aa4c2;font-weight:400}
 .an-mini{
-  margin-left:auto;font-size:11.5px;color:#8aa4c2;border:1px solid #27496f;border-radius:14px;
+  margin-left:auto;font-size:16px;color:#8aa4c2;border:1px solid #27496f;border-radius:14px;
   padding:4px 10px;cursor:pointer;background:transparent;
 }
 .an-mini:hover{color:#fff;border-color:#3d6da5}
-.an-bar-row{margin-bottom:13px}
-.an-bar-label{display:flex;align-items:baseline;gap:8px;margin-bottom:5px;flex-wrap:wrap}
-.an-bar-en{font-size:12.5px;font-weight:600}
-.an-bar-cn{font-size:11.5px;color:#8aa4c2}
-.an-bar-track{height:22px;border-radius:6px;background:#0f2035;overflow:hidden}
-.an-bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px}
-.an-bar-val{font-size:12px;font-weight:600;color:#fff}
-.an-axis{display:flex;justify-content:space-between;font-size:11px;color:#6f88a6;border-top:1px solid #1d3a5c;padding-top:6px;margin-top:6px}
-.an-radar{height:420px;position:relative}
-.an-note{font-size:12px;color:#8aa4c2;line-height:1.75;margin-top:12px}
+/* 诊断页四维度分组：卡片化排版 + 中英分行 + 指标名/票数两端对齐 */
+.an-dim-block{
+  margin-bottom:18px;padding:14px 18px 16px;border-radius:12px;
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.06);
+  border-left:5px solid #1668dc;
+}
+.an-dim-head{display:flex;align-items:baseline;gap:14px;margin:0 0 12px;flex-wrap:wrap}
+.an-dim-en{font-size:22px;font-weight:700}
+.an-dim-cn{font-size:18px;font-weight:600;color:#c3d3e6}
+.an-bar-row{margin-bottom:12px}
+.an-bar-row:last-child{margin-bottom:0}
+.an-bar-label{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:5px;flex-wrap:nowrap}
+.an-bar-en{font-size:18px;font-weight:600;line-height:1.35;color:#fff}
+.an-bar-count{font-size:16px;color:#fff;font-variant-numeric:tabular-nums;flex:0 0 auto;margin-left:auto}
+.an-bar-cn{font-size:16px;color:#8aa4c2}
+.an-bar-track{height:26px;border-radius:7px;background:#0f2035;overflow:hidden}
+.an-bar-fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px}
+.an-bar-val{font-size:16px;font-weight:600;color:#fff}
+.an-axis{display:flex;justify-content:space-between;font-size:16px;color:#6f88a6;border-top:1px solid #1d3a5c;padding-top:6px;margin-top:6px}
+.an-radar{height:560px;position:relative}
+.an-note{font-size:16px;color:#8aa4c2;line-height:1.75;margin-top:12px}
+/* 诊断页所有按钮字号 ≥16px（仅作用域本页，不影响评价表/报告页） */
+.an-wrap .dp-btn{font-size:16px}
+.an-wrap .dp-btn.x{font-size:20px}
 
 /* =========================================================
    新增小工具：计时器 / 词汇闯关 / 句式游戏 / AI情景口语
@@ -1040,7 +1054,7 @@ const TASKS = [
     output:"检前告知口语产出（角色扮演 + 录音提交）",
     outputType:"情境口语产出 · 四维评价",
     keywords:["fasting","NPO","abdominal ultrasound","millet congee","supplement"],
-    desc:"聚焦涉外体检中心检前告知，搭建“Tell—Check—Respond”三阶沟通框架，融入 What/Why/How/When 四要素，借助 AI 平台与小组角色扮演完成口语输出，结合 CARE 四维评价优化产出。" },
+    desc:"聚焦涉外体检中心检前告知，搭建“Tell—Check—Respond”三阶沟通框架，融入 What/Why/How/When 四要素，借助 AI 平台与小组角色扮演完成口语输出，结合四维评价优化产出。" },
   { id:3, name:"信息问询",   fullName:"任务3：信息问询",   en:"Information Inquiry",     icon:"📋", color:"#38a169", bc:"#579f6e", out:"表单书面产出",     hours:2, ready:false },
   { id:4, name:"流程引导",   fullName:"任务4：现场引导",   en:"On-site Check Guidance",  icon:"🚶", color:"#5a67d8", bc:"#5c67d1", out:"口头产出",         hours:2, ready:false },
   { id:5, name:"报告解读",   fullName:"任务5：报告解读",   en:"Report Interpretation",   icon:"📊", color:"#dd6b20", bc:"#cf7135", out:"长篇口语产出",     hours:3, ready:false },
@@ -1101,57 +1115,57 @@ const FOUR_STEPS = [
 
 /* CARE 四维评价（Clear 清晰 / Accurate 准确 / Respectful 得体 / Engaging 交互） */
 const CARE_DIMS = [
-  { key:"C", name:"清晰 Clear", en:"Clear", icon:"💡", color:"#1668dc",
-    desc:"运用 What-Why-How-When 四要素讲解每一条检前要求；信息逻辑有序，不是单纯罗列清单",
-    peer:80, ai:82 },
-  { key:"A", name:"准确 Accurate", en:"Accurate", icon:"🎯", color:"#0f9d8f",
-    desc:"fasting、NPO 等专业术语使用正确；各体检项目的检前准备完整无误，无错误信息",
-    peer:78, ai:80 },
-  { key:"R", name:"得体 Respectful", en:"Respectful", icon:"🌿", color:"#e8890c",
-    desc:"使用共情表达缓解客户焦虑；采用委婉建议，不用生硬命令语气",
-    peer:85, ai:86 },
-  { key:"E", name:"交互 Engaging", en:"Engaging", icon:"💬", color:"#2f9e44",
-    desc:"告知结束主动确认客户是否理解；针对客户现场提问给出针对性耐心应答",
-    peer:79, ai:83 }
+  { key:"C", name:"Information Clarity", en:"Information Clarity", icon:"💡", color:"#1668dc",
+    desc:"用英语完整覆盖四要素；用英语逻辑衔接词组织指令",
+    peer:78, ai:78 },
+  { key:"A", name:"Expression Accuracy", en:"Expression Accuracy", icon:"🎯", color:"#0f9d8f",
+    desc:"正确使用英语医学术语；完整传达英语检前指令",
+    peer:85, ai:85 },
+  { key:"R", name:"Language Politeness", en:"Language Politeness", icon:"🌿", color:"#e8890c",
+    desc:"使用英语共情表达安抚；用英语礼貌句式替代命令",
+    peer:70, ai:70 },
+  { key:"E", name:"Interaction Effect", en:"Interaction Effect", icon:"💬", color:"#2f9e44",
+    desc:"主动用英语确认理解；完整回应客户疑问",
+    peer:92, ai:92 }
 ];
 
 /* 学生互评量表（CARE 四维，指标依据教案生成；票数口径 = PEER_TOTAL 24 人） */
 const PEER_CHECKLIST = [
-  { key:"C", dim:"清晰 Clear", icon:"💡", color:"#1668dc", items:[
-    { id:"C1", text:"信息逻辑有序，运用 What-Why-How-When 四要素讲解每一条检前要求", votes:19 },
-    { id:"C2", text:"表达简洁易懂，无冗长混乱的语句", votes:17 }
+  { key:"C", dim:"Information Clarity", icon:"💡", color:"#1668dc", items:[
+    { id:"C1", text:"用英语完整覆盖四要素", votes:19 },
+    { id:"C2", text:"用英语逻辑衔接词组织指令", votes:18 }
   ]},
-  { key:"A", dim:"准确 Accurate", icon:"🎯", color:"#0f9d8f", items:[
-    { id:"A1", text:"体检专业词汇（fasting / NPO 等）使用正确", votes:18 },
-    { id:"A2", text:"各体检项目检前准备信息完整，无遗漏错误", votes:15 }
+  { key:"A", dim:"Expression Accuracy", icon:"🎯", color:"#0f9d8f", items:[
+    { id:"A1", text:"正确使用英语医学术语", votes:21 },
+    { id:"A2", text:"完整传达英语检前指令", votes:19 }
   ]},
-  { key:"R", dim:"得体 Respectful", icon:"🌿", color:"#e8890c", items:[
-    { id:"R1", text:"使用共情语句安抚客户紧张、担忧情绪", votes:20 },
-    { id:"R2", text:"沟通委婉礼貌，没有生硬下达指令", votes:14 }
+  { key:"R", dim:"Language Politeness", icon:"🌿", color:"#e8890c", items:[
+    { id:"R1", text:"使用英语共情表达安抚", votes:17 },
+    { id:"R2", text:"用英语礼貌句式替代命令", votes:16 }
   ]},
-  { key:"E", dim:"交互 Engaging", icon:"💬", color:"#2f9e44", items:[
-    { id:"E1", text:"告知完成后主动确认客户是否听懂（Check 环节落实）", votes:16 },
-    { id:"E2", text:"认真回应客户提问，做到双向对话，不是单向念稿", votes:13 }
+  { key:"E", dim:"Interaction Effect", icon:"💬", color:"#2f9e44", items:[
+    { id:"E1", text:"主动用英语确认理解", votes:22 },
+    { id:"E2", text:"完整回应客户疑问", votes:21 }
   ]}
 ];
 
 /* 学生端互评问卷专用数据（四维 + 8 条子项全英文；老师端 PEER_CHECKLIST 保持中文不变） */
 const STUDENT_QA = [
   { key:"C", dim:"Information Clarity", icon:"💡", color:"#1668dc", items:[
-    { id:"C1", text:"Information is presented logically, explaining each pre-check requirement with the What–Why–How–When framework." },
-    { id:"C2", text:"Expressions are concise and easy to follow, with no long or confusing sentences." }
+    { id:"C1", text:"Covering all 4W elements in English" },
+    { id:"C2", text:"Using logical English connectors for instructions" }
   ]},
   { key:"A", dim:"Expression Accuracy", icon:"🎯", color:"#0f9d8f", items:[
-    { id:"A1", text:"Professional medical terms (e.g. fasting / NPO) are used correctly." },
-    { id:"A2", text:"Pre-check information for each examination item is complete, with no omissions or errors." }
+    { id:"A1", text:"Using correct English medical terms" },
+    { id:"A2", text:"Delivering complete English pre-check instructions" }
   ]},
   { key:"R", dim:"Language Politeness", icon:"🌿", color:"#e8890c", items:[
-    { id:"R1", text:"Empathetic statements are used to ease the client’s nervousness and worry." },
-    { id:"R2", text:"Communication is polite and tactful, without blunt or commanding instructions." }
+    { id:"R1", text:"Using empathetic English phrases for comfort" },
+    { id:"R2", text:"Replacing commands with polite English patterns" }
   ]},
   { key:"E", dim:"Interaction Effect", icon:"💬", color:"#2f9e44", items:[
-    { id:"E1", text:"After informing, the guide actively checks whether the client has understood (the Check step is carried out)." },
-    { id:"E2", text:"The client’s questions are answered attentively, creating a two-way dialogue rather than a one-way monologue." }
+    { id:"E1", text:"Checking comprehension actively in English" },
+    { id:"E2", text:"Responding to client questions fully in English" }
   ]}
 ];
 window.STUDENT_QA = STUDENT_QA;
@@ -1161,26 +1175,34 @@ const PEER_TOTAL = 24;
 
 /* 八项核心指标 —— 与 13 分钟脚本的观测点一一对应（CARE 四维各 2 条） */
 const CORE_METRICS = [
-  { id:"C1", dim:"C", color:"#1668dc", en:"What-Why-How-When four elements applied", cn:"四要素讲解运用", source:"脚本：以 What/Why/How/When 交代空腹、憋尿要求" },
-  { id:"C2", dim:"C", color:"#1668dc", en:"Logical information organization", cn:"信息逻辑有序", source:"脚本教师：信息有序，未罗列清单" },
-  { id:"A1", dim:"A", color:"#0f9d8f", en:"Correct use of fasting / NPO", cn:"fasting/NPO 术语正确", source:"脚本：准确使用 fasting、NPO 等术语" },
-  { id:"A2", dim:"A", color:"#0f9d8f", en:"Complete pre-check info per item", cn:"各项目准备完整", source:"脚本：空腹采血+腹部超声+胃镜准备完整" },
-  { id:"R1", dim:"R", color:"#e8890c", en:"Empathetic sentences to ease anxiety", cn:"共情语句安抚", source:"脚本：No worries at all. / I totally understand." },
-  { id:"R2", dim:"R", color:"#e8890c", en:"Polite suggestions, not blunt orders", cn:"委婉建议不生硬", source:"脚本：以建议代替命令" },
-  { id:"E1", dim:"E", color:"#2f9e44", en:"Actively check client understanding", cn:"主动确认理解", source:"脚本：Let me confirm — Is that all clear?" },
-  { id:"E2", dim:"E", color:"#2f9e44", en:"Responsive two-way interaction", cn:"双向对话应答", source:"脚本：针对客户提问即时回应" }
+  { id:"C1", dim:"C", color:"#1668dc", en:"Covering all 4W elements in English", radarEn:"Covering 4W elements", cn:"用英语完整覆盖四要素", source:"脚本：以 What/Why/How/When 交代空腹、憋尿要求" },
+  { id:"C2", dim:"C", color:"#1668dc", en:"Using logical English connectors for instructions", radarEn:"Logical English connectors", cn:"用英语逻辑衔接词组织指令", source:"脚本教师：信息有序，未罗列清单" },
+  { id:"A1", dim:"A", color:"#0f9d8f", en:"Using correct English medical terms", radarEn:"Correct medical terms", cn:"正确使用英语医学术语", source:"脚本：准确使用 fasting、NPO 等术语" },
+  { id:"A2", dim:"A", color:"#0f9d8f", en:"Delivering complete English pre-check instructions", radarEn:"Complete pre-check instructions", cn:"完整传达英语检前指令", source:"脚本：空腹采血+腹部超声+胃镜准备完整" },
+  { id:"R1", dim:"R", color:"#e8890c", en:"Using empathetic English phrases for comfort", radarEn:"Empathetic English phrases", cn:"使用英语共情表达安抚", source:"脚本：No worries at all. / I totally understand." },
+  { id:"R2", dim:"R", color:"#e8890c", en:"Replacing commands with polite English patterns", radarEn:"Polite English patterns", cn:"用英语礼貌句式替代命令", source:"脚本：以建议代替命令" },
+  { id:"E1", dim:"E", color:"#2f9e44", en:"Checking comprehension actively in English", radarEn:"Checking comprehension", cn:"主动用英语确认理解", source:"脚本：Let me confirm — Is that all clear?" },
+  { id:"E2", dim:"E", color:"#2f9e44", en:"Responding to client questions fully in English", radarEn:"Responding to questions", cn:"完整回应客户疑问", source:"脚本：针对客户提问即时回应" }
 ];
 
 /* 评价表四个维度组（英文标题 + 中文副标题） */
 const EVAL_GROUPS = [
   { key:"C", no:1, icon:"💡", color:"#1668dc",
-    en:"Clear & Logical Information Delivery", cn:"信息清晰有序传达" },
+    en:"Information Clarity", cn:"信息清晰" },
   { key:"A", no:2, icon:"🎯", color:"#0f9d8f",
-    en:"Accurate Professional Expression", cn:"专业准确表达" },
+    en:"Expression Accuracy", cn:"表达准确" },
   { key:"R", no:3, icon:"🌿", color:"#e8890c",
-    en:"Respectful & Empathetic Communication", cn:"得体共情沟通" },
+    en:"Language Politeness", cn:"语言礼貌" },
   { key:"E", no:4, icon:"💬", color:"#2f9e44",
-    en:"Engaging Two-way Interaction", cn:"交互式双向沟通" }
+    en:"Interaction Effect", cn:"互动效果" }
+];
+
+/* 学情诊断条形图四个维度（中英双语标题；英文用学生问卷同款维度名） */
+const ANALYSIS_DIMS = [
+  { key:"C", en:"Information Clarity", cn:"信息清晰", color:"#1668dc" },
+  { key:"A", en:"Expression Accuracy", cn:"表达准确", color:"#0f9d8f" },
+  { key:"R", en:"Language Politeness", cn:"语言礼貌", color:"#e8890c" },
+  { key:"E", en:"Interaction Effect", cn:"互动效果", color:"#2f9e44" }
 ];
 
 /* 词汇闯关（Task 2 核心词，含岗位提示） */
@@ -1334,14 +1356,14 @@ const AI_REPORT = {
   group:"展示组 Group One",
   total:83,
   dims:[
-    { key:"C", name:"C · Clarity", score:82, color:"#1668dc",
-      comment:"Each pre-check instruction was explained with the What–Why–How–When framework in a logical order; the sequence of a few requirements could be further optimized." },
-    { key:"A", name:"A · Accuracy", score:80, color:"#0f9d8f",
-      comment:"Terminology such as fasting / NPO was used correctly; preparations for the fasting blood test, abdominal ultrasound and gastroscopy were complete and error-free." },
-    { key:"R", name:"R · Respectfulness", score:86, color:"#e8890c",
-      comment:"Empathy was expressed naturally and effectively eased the client’s anxiety; the tone was courteous rather than commanding." },
-    { key:"E", name:"E · Engagement", score:83, color:"#2f9e44",
-      comment:"Understanding was proactively confirmed at the end (Is that all clear?), and the question about drinking water received a targeted response." }
+    { key:"C", name:"Information Clarity", score:78, color:"#1668dc",
+      comment:"All 4W elements were covered in English and logical English connectors were used to organize the instructions; a few details could be further optimized." },
+    { key:"A", name:"Expression Accuracy", score:85, color:"#0f9d8f",
+      comment:"Correct English medical terms were used and the English pre-check instructions were delivered completely and error-free." },
+    { key:"R", name:"Language Politeness", score:70, color:"#e8890c",
+      comment:"Empathetic English phrases were used naturally for comfort, replacing commands with polite English patterns." },
+    { key:"E", name:"Interaction Effect", score:92, color:"#2f9e44",
+      comment:"Comprehension was checked actively in English and the client’s questions were responded to fully." }
   ],
   highlights:[
     "The Tell–Check–Respond three-stage framework was fully delivered — inform → confirm understanding → answer questions — with a clear discourse structure.",
@@ -1366,10 +1388,10 @@ const AI_REPORT = {
       note:"补充 How / Why，信息完整且逻辑有序。" }
   ],
   teacherSummary:[
-    { key:"C", title:"Clear 清晰", text:"运用四要素讲解每一条检前要求，信息逻辑有序。" },
-    { key:"A", title:"Accurate 准确", text:"专业术语使用正确，各项目检前准备完整无误。" },
-    { key:"R", title:"Respectful 得体", text:"共情先行、委婉建议，用温度告知而非命令。" },
-    { key:"E", title:"Engaging 交互", text:"主动确认理解、耐心应答提问，形成双向对话。" }
+    { key:"C", title:"Information Clarity", text:"用英语完整覆盖四要素，用英语逻辑衔接词组织指令。" },
+    { key:"A", title:"Expression Accuracy", text:"正确使用英语医学术语，完整传达英语检前指令。" },
+    { key:"R", title:"Language Politeness", text:"使用英语共情表达安抚，用英语礼貌句式替代命令。" },
+    { key:"E", title:"Interaction Effect", text:"主动用英语确认理解，完整回应客户疑问。" }
   ],
   closing:"Professional pre-check instruction is not only about stating the rules — it is about telling with clarity, checking with care, and responding with empathy."
 };
@@ -1442,12 +1464,12 @@ const RESOURCE_CATEGORIES = [
     { title:"体检英文要点对照表", desc:"fasting / NPO / ultrasound 等中英对照", task:2 }
   ]},
   { name:"互评观测表", icon:"✅", items:[
-    { title:"CARE 四维互评量表", desc:"清晰 / 准确 / 得体 / 交互 四维共 8 项观测指标", task:2 },
+    { title:"四维互评量表", desc:"信息清晰 / 表达准确 / 语言礼貌 / 互动效果 四维共 8 项观测指标", task:2 },
     { title:"角色扮演互评表", desc:"健康管理师、外籍客户、观察员三方职责对照表", task:2 },
     { title:"岗位边界合规检查表", desc:"越界应答预警与标准替代句式", task:2 }
   ]},
   { name:"AI 评测指令", icon:"🤖", items:[
-    { title:"AI 角色扮演质检指令（完整版）", desc:"CARE 四维评分 + 亮点 + 待优化原句 + 替换句式", task:2 },
+    { title:"AI 角色扮演质检指令（完整版）", desc:"四维评分 + 亮点 + 待优化原句 + 替换句式", task:2 },
     { title:"AI 质检快速调取指令", desc:"课堂即时调用，30 秒出报告", task:2 },
     { title:"AI 识图测评指令", desc:"实景标识识读与提示语生成", task:2 }
   ]},
@@ -1470,6 +1492,7 @@ window.PEER_CHECKLIST = PEER_CHECKLIST;
 window.PEER_TOTAL = PEER_TOTAL;
 window.CORE_METRICS = CORE_METRICS;
 window.EVAL_GROUPS = EVAL_GROUPS;
+window.ANALYSIS_DIMS = ANALYSIS_DIMS;
 window.WORD_QUIZ = WORD_QUIZ;
 window.SENTENCE_PUZZLE = SENTENCE_PUZZLE;
 window.AI_DIALOG = AI_DIALOG;
@@ -1698,7 +1721,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
             <div style="font-size:13.5px;font-weight:600;margin-bottom:8px">产出任务</div>
             <div style="font-size:13px;color:var(--text-2);line-height:1.75">
               学生以小组为单位抽取分层检前告知任务卡，由健康管理师依据“Tell–Check–Respond”三阶框架完成涉外体检检前告知，
-              外籍客户须触发 1-3 个复杂突发场景，观察员对照 CARE 四维量表记录证据。
+              外籍客户须触发 1-3 个复杂突发场景，观察员对照四维量表记录证据。
             </div>
             <div style="font-size:13.5px;font-weight:600;margin:14px 0 8px">分层动线任务卡</div>
             <div class="tbl-wrap"><table class="tbl">
@@ -1719,7 +1742,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
                 <div style="font-size:11.5px;color:var(--text-2);line-height:1.55">${esc(r.duty)}</div></div>
               </div>`).join("")}
             <div style="font-size:13.5px;font-weight:600;margin:14px 0 8px">三维评价标准</div>
-            ${CARE_DIMS.map((d) => `<div style="margin-bottom:6px"><span class="tag" style="background:${d.color}1a;color:${d.color}">${d.icon} ${esc(d.name)} ${esc(d.en)}</span> <span style="font-size:12px;color:var(--text-2)">${esc(d.desc)}</span></div>`).join("")}
+            ${CARE_DIMS.map((d) => `<div style="margin-bottom:6px"><span class="tag" style="background:${d.color}1a;color:${d.color}">${d.icon} ${esc(d.name)}</span> <span style="font-size:12px;color:var(--text-2)">${esc(d.desc)}</span></div>`).join("")}
           </div>
         </div>
         <div class="btn-group" style="margin-top:14px">
@@ -1751,7 +1774,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
 
       <div class="card" style="margin-top:18px">
         <div class="card-title">🎙️ Task 2 角色扮演录音作业</div>
-        <div class="card-desc">学生小组提交检前告知角色扮演录音，AI 生成 CARE 四维质检报告，教师复核评分</div>
+        <div class="card-desc">学生小组提交检前告知角色扮演录音，AI 生成四维质检报告，教师复核评分</div>
         <div class="tbl-wrap"><table class="tbl">
           <thead><tr><th>小组</th><th>成员</th><th>任务卡</th><th>时长</th><th>提交时间</th><th>AI 初评</th><th>教师评分</th><th>状态</th><th>操作</th></tr></thead>
           <tbody>${SUBMISSIONS.map((s) => `<tr>
@@ -1774,9 +1797,9 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
         <div class="card-title">🤖 AI 评价使用说明</div>
         <div class="card-desc">坚持学生自主表达为主、AI 润色为辅</div>
         <div style="font-size:13px;color:var(--text-2);line-height:1.8">
-          · AI 质检报告覆盖 <b>CARE 四维评分、表演亮点、待优化原句、岗位标准替换句式</b> 四个板块。<br>
+          · AI 质检报告覆盖 <b>四维评分、表演亮点、待优化原句、岗位标准替换句式</b> 四个板块。<br>
           · 教学实施中强调 AI 仅作为助学工具，<b>拒绝完全依赖 AI 生成口语成果</b>。<br>
-          · 教师需在“教师点评”环节综合互评数据与 AI 报告，示范标准口语表达并完成 CARE 升华。
+          · 教师需在“教师点评”环节综合互评数据与 AI 报告，示范标准口语表达并完成素养升华。
         </div>
       </div>`;
   };
@@ -1827,7 +1850,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
           <div class="dc-wide-ico">📈</div>
           <div>
             <div class="dc-wide-title">综合分析 · 能力发展趋势总览</div>
-            <div class="dc-wide-sub">CARE 四维雷达 · 四步框架掌握度 · 前后测增值</div>
+            <div class="dc-wide-sub">四维雷达 · 四步框架掌握度 · 前后测增值</div>
           </div>
           <div class="dc-wide-go">查看 →</div>
         </div>
@@ -1963,19 +1986,28 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
 
   function openAnalysis() {
     const total = peerTotal();
-    const rows = CORE_METRICS.map((m) => {
-      const v = VOTES[m.id] || 0;
-      const pct = v / total * 100;
-      return `<div class="an-bar-row">
-        <div class="an-bar-label">
-          <span class="an-bar-en" style="color:${m.color}">${esc(m.en)}</span>
-          <span class="an-bar-cn">${esc(m.cn)} · ${v}/${total}</span>
+    const rows = ANALYSIS_DIMS.map((g) => {
+      const metrics = CORE_METRICS.filter((m) => m.dim === g.key);
+      return `<div class="an-dim-block" style="border-left-color:${g.color}">
+        <div class="an-dim-head">
+          <span class="an-dim-en" style="color:${g.color}">${esc(g.en)}</span>
+          <span class="an-dim-cn">${esc(g.cn)}</span>
         </div>
-        <div class="an-bar-track">
-          <div class="an-bar-fill" style="width:${Math.max(pct, 8).toFixed(1)}%;background:${m.color}">
-            <span class="an-bar-val">${pct.toFixed(1)}%</span>
-          </div>
-        </div>
+        ${metrics.map((m) => {
+          const v = VOTES[m.id] || 0;
+          const pct = v / total * 100;
+          return `<div class="an-bar-row">
+            <div class="an-bar-label">
+              <span class="an-bar-en">${esc(m.en)}</span>
+              <span class="an-bar-count">${v}/${total}</span>
+            </div>
+            <div class="an-bar-track">
+              <div class="an-bar-fill" style="width:${Math.max(pct, 8).toFixed(1)}%;background:${m.color}">
+                <span class="an-bar-val">${pct.toFixed(1)}%</span>
+              </div>
+            </div>
+          </div>`;
+        }).join("")}
       </div>`;
     }).join("");
 
@@ -1994,7 +2026,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
       <div class="an-card">
         <div class="an-sec-head">
           <span class="an-sec-no">1</span>
-          六项指标达成率 · 条形图
+          八项指标达成率 · 条形图
           <span class="an-sec-en">Achievement Rate by Indicator</span>
         </div>
         ${rows}
@@ -2004,14 +2036,14 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
       <div class="an-card">
         <div class="an-sec-head">
           <span class="an-sec-no">2</span>
-          ${radarMode === "core" ? "八项指标能力画像 · 雷达图" : "CARE 四维综合画像 · 雷达图"}
-          <span class="an-sec-en">${radarMode === "core" ? "Capability Profile Radar (axis order identical to Chart 1)" : "Comprehensive CARE Radar (peer vs AI)"}</span>
+          ${radarMode === "core" ? "八项指标能力画像 · 雷达图" : "四维综合画像 · 雷达图"}
+          <span class="an-sec-en">${radarMode === "core" ? "Capability Profile Radar (axis order identical to Chart 1)" : "Comprehensive Four-Dimension Radar (peer vs AI)"}</span>
           <button class="an-mini" onclick="toggleRadarMode()">辅助 / 综合图像</button>
         </div>
         <div class="an-radar"><canvas id="chartCoreRadar"></canvas></div>
         <div class="an-note">
           轴序与图 1 一致：${order}<br>
-          ${radarMode === "core" ? "数据口径：勾选人数 ÷ 有效互评人数（" + total + " 人）。" : "数据口径：CARE 四维同伴互评均分 vs AI 质检均分（满分 100）。"}
+          ${radarMode === "core" ? "数据口径：勾选人数 ÷ 有效互评人数（" + total + " 人）。" : "数据口径：四维同伴互评均分 vs AI 质检均分（满分 100）。"}
         </div>
       </div>`, "an-wrap");
 
@@ -2023,7 +2055,8 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
     let config;
     if (radarMode === "core") {
       config = {
-        labels: CORE_METRICS.map((m) => m.cn),
+        // 八个指标：中英双语分 2 行显示（Chart.js 用数组实现多行标签）
+        labels: CORE_METRICS.map((m) => [m.cn, m.radarEn || m.en]),
         datasets: [{
           label: "达成率 %",
           data: CORE_METRICS.map((m) => +((VOTES[m.id] || 0) / total * 100).toFixed(1)),
@@ -2033,7 +2066,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
       };
     } else {
       config = {
-        labels: CARE_DIMS.map((d) => d.name + " " + d.en),
+        labels: CARE_DIMS.map((d) => d.name),
         datasets: [
           { label: "同伴互评", data: CARE_DIMS.map((d) => d.peer), borderColor: "#1668dc", backgroundColor: "rgba(22,104,220,.18)", pointBackgroundColor: "#1668dc" },
           { label: "AI 质检", data: CARE_DIMS.map((d) => d.ai), borderColor: "#e8890c", backgroundColor: "rgba(232,137,12,.18)", pointBackgroundColor: "#e8890c" }
@@ -2051,7 +2084,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
             beginAtZero: true, max: 100,
             ticks: { stepSize: 25, color: "#8aa4c2", backdropColor: "transparent", font: { size: 10 } },
             grid: { color: "#1d3a5c" }, angleLines: { color: "#1d3a5c" },
-            pointLabels: { color: "#c3d3e6", font: { size: 12 } }
+            pointLabels: { color: "#c3d3e6", font: { size: 20 } }
           }
         }
       }
@@ -2067,10 +2100,10 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
   /* ---------- 两张综合分析卡 ---------- */
   function openTrend() {
     openModal("📈 综合分析 · 能力发展趋势总览", `
-      <div class="card-desc">Task 2 检前告知 · CARE 四维对比 / 四步框架掌握度 / 前后测增值</div>
+      <div class="card-desc">Task 2 检前告知 · 四维对比 / 四步框架掌握度 / 前后测增值</div>
       <div class="grid grid-2">
         <div>
-          <div style="font-size:13px;font-weight:600;margin-bottom:6px">🎯 CARE 四维对比（同伴互评 vs AI 质检）</div>
+          <div style="font-size:13px;font-weight:600;margin-bottom:6px">🎯 四维对比（同伴互评 vs AI 质检）</div>
           <div class="chart-box"><canvas id="tRadar"></canvas></div>
         </div>
         <div>
@@ -2088,7 +2121,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
     drawChart("tRadar", {
       type: "radar",
       data: {
-        labels: CARE_DIMS.map((d) => d.name + " " + d.en),
+        labels: CARE_DIMS.map((d) => d.name),
         datasets: [
           { label: "同伴互评", data: CARE_DIMS.map((d) => d.peer), borderColor: "#1668dc", backgroundColor: "rgba(22,104,220,.18)", pointBackgroundColor: "#1668dc" },
           { label: "AI 质检", data: CARE_DIMS.map((d) => d.ai), borderColor: "#e8890c", backgroundColor: "rgba(232,137,12,.18)", pointBackgroundColor: "#e8890c" }
@@ -2126,7 +2159,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
           <div style="font-size:13px;font-weight:600;margin-bottom:8px">⚠️ 班级共性薄弱点</div>
           ${CLASS_STATS.weakness.map((w) => `
             <div class="weak-item"><div class="weak-rank">${w.rank}</div><div style="font-size:12.5px;line-height:1.6">${esc(w.text)}</div></div>`).join("")}
-          <div style="font-size:13px;font-weight:600;margin:14px 0 8px">🔑 教师提炼 · CARE 四维要点</div>
+          <div style="font-size:13px;font-weight:600;margin:14px 0 8px">🔑 教师提炼 · 四维要点</div>
           ${AI_REPORT.teacherSummary.map((t) => `<div style="margin-bottom:6px"><span class="tag tag-teal">${esc(t.title)}</span> <span style="font-size:12px;color:var(--text-2)">${esc(t.text)}</span></div>`).join("")}
         </div>
         <div>
@@ -2174,7 +2207,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
       <td><b>${VOTES[it.id]}</b></td>
       <td><div class="bar-track"><div class="bar-fill" style="width:${Math.round(VOTES[it.id] / total * 100)}%;background:${d.color}"></div></div></td>
     </tr>`).join("")).join("");
-    openModal("互评投票明细 · Task 2（CARE 四维 8 项 / 有效互评 " + total + " 人）", `
+    openModal("互评投票明细 · Task 2（四维 8 项 / 有效互评 " + total + " 人）", `
       <div class="tbl-wrap"><table class="tbl">
         <thead><tr><th>维度</th><th>项</th><th>观测指标</th><th>勾选人数</th><th>占比</th></tr></thead>
         <tbody>${rows}</tbody></table></div>
@@ -2258,9 +2291,9 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
     lottery: { icon: "🎰", name: "线上抽签", sub: "随机抽取学生/分组", color: "#e8890c", kind: "task",
       desc: "5 个小组随机抽取分层动线任务卡（含客户档案、突发场景与达成目标），支持一键抽签与重置。" },
     qr: { icon: "📱", name: "任务二维码", sub: "生成任务分享二维码", color: "#d64545", kind: "task",
-      desc: "生成 Task 2 角色扮演互评问卷二维码，学生扫码进入 CARE 四维互评表（清晰 / 准确 / 得体 / 交互）。" },
+      desc: "生成 Task 2 角色扮演互评问卷二维码，学生扫码进入四维互评表（信息清晰 / 表达准确 / 语言礼貌 / 互动效果）。" },
     report: { icon: "🤖", name: "质检报告生成", sub: "九大任务AI质检报告", color: "#2f9e44", kind: "task",
-      desc: "AI 角色扮演质检报告：CARE 四维评分、表演亮点、待优化原句、岗位标准替换句式。" },
+      desc: "AI 角色扮演质检报告：四维评分、表演亮点、待优化原句、岗位标准替换句式。" },
     recorder: { icon: "🎬", name: "角色扮演录音", sub: "九大任务情景模拟", color: "#c2417a", kind: "task",
       desc: "陪检情景录音台：客户档案、四步支架句型、突发场景提示，支持真实麦克风录音与演示模式。" },
     timer: { icon: "⏱️", name: "课堂计时器", sub: "活动倒计时工具", color: "#3a8fb7", kind: "direct",
@@ -2291,7 +2324,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
     aiChat: "AI 情景口语 · 虚拟客户对话",
     lottery: "课堂抽签台",
     qr: "任务二维码生成",
-    report: "CARE 四维质检分析",
+    report: "四维质检分析",
     recorder: "角色扮演录音台"
   };
   const TOOL_PICK_SUB = {
@@ -2534,7 +2567,7 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
 
   function renderQR() {
     openModal("📱 任务二维码 · Task 2 角色扮演互评问卷", `
-      <div class="card-desc">学生扫码进入 CARE 四维互评表（清晰 / 准确 / 得体 / 交互，共 8 项标准指标），勾选观演时观察到的表现项后提交，页面显示「已提交」</div>
+      <div class="card-desc">学生扫码进入四维互评表（信息清晰 / 表达准确 / 语言礼貌 / 互动效果，共 8 项标准指标），勾选观演时观察到的表现项后提交，页面显示「已提交」</div>
       <div class="qr-box">
         <div class="qr-canvas-wrap">
           <div id="qrcode"></div>
@@ -3009,8 +3042,9 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
 
   function submitForAI() {
     if (!recState.url && recState.sec === 0) { showToast("请先录音，或使用演示模式"); return; }
-    showToast("已提交 AI 分析，正在生成质检报告…");
-    setTimeout(() => openReport(), 600);
+    // 点击「AI分析报告」直接跳转质检报告详情页（不再经过发布页/小组选择）
+    closeModal();
+    openReport("detail");
   }
   window.submitForAI = submitForAI;
 
@@ -3030,18 +3064,20 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
           </div>`).join("")}
       </div>
       <div class="btn-group" style="margin-top:14px">
-        <button class="btn btn-primary" onclick="goToPeerVote()">👥 小组互评</button>
-        <button class="btn btn-primary" onclick="submitForAI()">📄 AI分析报告</button>
-        <button class="btn" onclick="restartRecording()">↩ 返回重新录制</button>
+        <button class="btn btn-primary" style="font-size:20px" onclick="goToPeerVote()">👥 学生互评</button>
+        <button class="btn btn-primary" style="font-size:20px" onclick="submitForAI()">📄 AI分析报告</button>
+        <button class="btn" style="font-size:20px" onclick="restartRecording()">↩ 返回重新录制</button>
       </div>`, "");
     showToast("识别完成，已生成对话文本");
   }
   window.recRecognize = recRecognize;
 
-  /* 识别文本弹窗 → 小组互评（Task 2 评价表深色页），来源标记为识别文本页 */
+  /* 识别文本弹窗 → 学生互评（直达学情可视化诊断页，不再经过评价表页） */
   function goToPeerVote() {
     closeModal();
-    openEval(2, true);
+    evalTask = 2;
+    evalFromRecognition = true;   // 诊断页「返回主界面」仍带来源标记
+    openAnalysis();
   }
   window.goToPeerVote = goToPeerVote;
 
@@ -3133,13 +3169,13 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
           </div>
           <div class="rd-hero-score">
             <div class="rd-score">${r.total}</div>
-            <div class="rd-score-cap">CARE 综合得分</div>
+            <div class="rd-score-cap">综合得分</div>
           </div>
         </div>
       </div>
 
       <div class="rd-card">
-        <div class="rd-h2">🎯 CARE Four-Dimension Scores</div>
+        <div class="rd-h2">🎯 Four-Dimension Scores</div>
         ${r.dims.map((dd) => `
           <div class="rd-dim-row">
             <div class="rd-dim-name">${esc(dd.name)}</div>
