@@ -766,6 +766,25 @@ table.tbl tr:hover td{background:#fafbfe}
 /* 诊断页所有按钮字号 ≥16px（仅作用域本页，不影响评价表/报告页） */
 .an-wrap .dp-btn{font-size:16px}
 .an-wrap .dp-btn.x{font-size:20px}
+/* 停止录音后 AI 解析加载页（深蓝紫渐变 + 旋转圆环 + 提示文字） */
+.dark-page[data-theme="loading"]{background:#f4f6fa}
+.an-loading-wrap{display:flex;flex-direction:column;min-height:100vh}
+.an-loading-hd{
+  background:#eef1f6;color:#8a93a3;font-size:14px;padding:12px 22px;
+  border-bottom:1px solid #e2e7ef;letter-spacing:.3px;
+}
+.an-loading{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+  background:linear-gradient(135deg,#101d3d 0%,#1a1b3a 55%,#241a3f 100%);padding:24px;
+}
+.an-loading-spinner{
+  width:52px;height:52px;border-radius:50%;
+  border:4px solid rgba(255,255,255,.16);border-top-color:#3b9bff;
+  animation:an-spin .9s linear infinite;margin-bottom:26px;
+}
+@keyframes an-spin{to{transform:rotate(360deg)}}
+.an-loading-title{font-size:22px;font-weight:700;color:#fff;letter-spacing:.3px}
+.an-loading-sub{font-size:14px;color:#8aa4c2;margin-top:12px}
 
 /* =========================================================
    新增小工具：计时器 / 词汇闯关 / 句式游戏 / AI情景口语
@@ -3028,13 +3047,33 @@ window.REC_TRANSCRIPT = REC_TRANSCRIPT;
     recState.data = null;
   }
 
+  /* 停止录音后的 AI 解析加载页（顶部浅色标题栏 + 深蓝紫渐变 + 旋转圆环 + 提示文字） */
+  function showAnalyzing(title) {
+    const hd = title || "角色扮演录音";
+    showDark(`
+      <div class="an-loading-hd">${esc(hd)}</div>
+      <div class="an-loading">
+        <div class="an-loading-spinner"></div>
+        <div class="an-loading-title">AI正在解析对话音频，请稍候…</div>
+        <div class="an-loading-sub">请勿关闭页面</div>
+      </div>`, "an-loading-wrap", "loading");
+  }
+  window.showAnalyzing = showAnalyzing;
+
   function recStopRecord() {
     if (recState.rec && recState.rec.state === "recording") { try { recState.rec.stop(); } catch (e) {} }
     stopAllTracks();
     recState.on = false;
     recSyncUI();
     recDrawStaticWave();
-    if (recState.sec > 0) showToast("录音已完成 · 时长 " + fmt(recState.sec) + " · 可回放、识别录音或提交 AI 分析");
+    // 演示模式秒停兜底：保证随后识别录音文本页的守卫不被拦下
+    if (!recState.url && recState.sec === 0) recState.sec = 1;
+    // 关闭录音弹窗（其 z-index 高于深色页，不关会遮住加载页），再显示解析加载页
+    const recTitle = ($("#modal-title") || {}).textContent || "角色扮演录音";
+    closeModal();
+    showAnalyzing(recTitle);
+    // 停留 3 秒后自动弹出识别录音文本页
+    setTimeout(() => { hideDark(); recRecognize(); }, 3000);
   }
 
   function playBack() {
